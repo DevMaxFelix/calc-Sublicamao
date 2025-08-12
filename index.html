@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalização de Canecas e Camisetas</title>
+    <style>
+    body {
+        font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+        background-color: #121212;
+        margin: 0;
+        padding: 20px;
+        color: #f5f5f5;
+    }
+
+    .container {
+        max-width: 540px;
+        margin: auto;
+        background: #1e1e1e;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    label {
+        display: block;
+        margin: 10px 0 5px;
+    }
+
+    input, select {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 12px;
+        border: 1px solid #444;
+        border-radius: 6px;
+        background-color: #2d2d2d;
+        color: #f5f5f5;
+    }
+
+    button {
+        width: 100%;
+        padding: 14px;
+        background-color: #08581b;
+        color: rgb(255, 255, 255);
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #218838;
+        transform: translateY(-2px);
+    }
+
+    .imagem-produto {
+        text-align: center;
+        margin: 15px 0;
+    }
+    
+    .imagem-produto img {
+        width: 200px;
+        height: auto;
+        border-radius: 8px;
+        border: 1px solid #444;
+    }
+
+    .resumo {
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #2d2d2d;
+        border-radius: 8px;
+        border: 1px solid #444;
+        color: #ffffff;
+        display: flex;
+        gap: 15px;
+        align-items: flex-start;
+    }
+    
+    .resumo-thumbnail img {
+        width: 80px;
+        height: 80px;
+        border-radius: 6px;
+        object-fit: cover;
+        border: 1px solid #555;
+    }
+    
+    .resumo-content {
+        flex: 1;
+    }
+
+    .resumo h2 {
+        color: #ffffff;
+        margin-top: 0;
+        border-bottom: 1px solid #555;
+        padding-bottom: 8px;
+    }
+
+    .resumo h3 {
+        color: #ffffff;
+        background: #000000;
+        padding: 10px;
+        border-radius: 6px;
+    }
+    
+    .button-group {
+        display: flex;
+        gap: 10px;
+        margin-top: 15px;
+    }
+    
+    #limpar {
+        background-color: #8d131f;
+    }
+    
+    #limpar:hover {
+        background-color: #c82333;
+    }
+    
+    .whatsapp-btn {
+        background-color: #07c54d;
+        color: rgb(0, 0, 0);
+        padding: 10px 15px;
+        border-radius: 6px;
+        text-decoration: none;
+        display: block;
+        text-align: center;
+        margin-top: 15px;
+        font-weight: bold;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .whatsapp-btn:hover {
+        background-color: #128C7E;
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🖨️ Calculadora de Personalização</h1>
+        
+        <label for="produto">Escolha o Produto:</label>
+        <select id="produto">
+            <option value="caneca">Caneca</option>
+            <option value="camiseta">Camiseta</option>
+        </select>
+
+        <div class="imagem-produto">
+            <img id="imagem-produto" src="https://dw0jruhdg6fis.cloudfront.net/producao/29783364/G/kit-caneca-e-camiseta-personalizada-com-sua-ideia-.webp" alt="Produto selecionado" />
+        </div>
+
+              <label for="material">🗃 Tipo de Material:</label>
+        <select id="material">
+            <option value="dtf-textil">DTF Têxtil</option>
+            <option value="dtf-uv">DTF UV</option>
+        </select>
+
+        <label for="valor-produto">📦 Valor do Produto (R$):</label>
+        <input type="number" id="valor-produto" placeholder="Digite o valor do produto" />
+
+        <label for="valor-folha">📑 Valor da Folha (unidade) (R$):</label>
+        <input type="number" id="valor-folha" placeholder="Digite o valor da folha" />
+
+        <label for="frete">🚗 Frete Proporcional (R$):</label>
+        <input type="number" id="frete" placeholder="Digite o valor do frete" />
+
+        <label for="lucro">💰 Lucro Desejado (%):</label>
+        <input type="number" id="lucro" placeholder="Digite o lucro desejado" />
+
+        <div class="button-group">
+            <button id="calcular">📊 CALCULAR</button>
+            <button id="limpar">🔄 LIMPAR</button>
+        </div>
+
+        <div id="resumo" class="resumo">
+            <div class="resumo-thumbnail"></div>
+            <div class="resumo-content"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const produtoSelect = document.getElementById('produto');
+            const imagemProduto = document.getElementById('imagem-produto');
+            
+            produtoSelect.addEventListener('change', function() {
+                imagemProduto.src = this.value === 'caneca' 
+                    ? 'https://img.elo7.com.br/product/zoom/450FEFF/caneca-personalizada-sua-ideia-aqui-lembrancinhas-batizado.jpg?_gl=1*f2r2hl*_gcl_aw*R0NMLjE3NTUwMzE0NDkuQ2owS0NRand6T3ZFQmhEVkFSSXNBREhmSkpTcVhzcnppZkFnZzJjXzh5azFGaVVRXzRxeV9UYmM3SEFHeEpidWY4ZXI2SDJTdS1Lem1SZ2FBcXlGRUFMd193Y0I.*_gcl_au*MTI2OTczNjUzMi4xNzU1MDMxNDQ5*_ga*OTcwMDgzOTU3LjE3NTUwMzE0NDg.*_ga_22YVRK2WCW*czE3NTUwMzE0NDgkbzEkZzAkdDE3NTUwMzE0NDgkajYwJGwwJGgxNDc5MjAxMjE0'
+                    : 'https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/205f1477-b8e9-4999-9f31-b05502acec38.png';
+            });
+
+            document.getElementById('calcular').addEventListener('click', function() {
+                const valorProduto = parseFloat(document.getElementById('valor-produto').value) || 0;
+                const valorFolha = parseFloat(document.getElementById('valor-folha').value) || 0;
+                const frete = parseFloat(document.getElementById('frete').value) || 0;
+                const lucro = parseFloat(document.getElementById('lucro').value) || 0;
+
+                const custoTotal = valorProduto + valorFolha + frete;
+                const lucroTotal = (custoTotal * (lucro / 100));
+                const valorFinal = custoTotal + lucroTotal;
+
+                const resumo = `
+                    <div class="resumo-thumbnail">
+                        <img src="${document.getElementById('imagem-produto').src}" alt="Produto selecionado" />
+                    </div>
+                    <div class="resumo-content">
+                        <h2>📝 Resumo da Personalização</h2>
+                        <p><b> Valor do Produto: </b> R$ ${valorProduto.toFixed(2)}</p>
+                        <p><b> Valor da Folha de Sublimação: </b> R$ ${valorFolha.toFixed(2)}</p>
+                        <p><b> Frete Proporcional: </b> R$ ${frete.toFixed(2)}</p>
+                        <p><b> Lucro Desejado: </b> R$ ${lucroTotal.toFixed(2)} (${lucro}%)</p>
+                        <h3><b> ✅ Valor Final da Personalização: </b> R$ ${valorFinal.toFixed(2)}</h3>
+                        <a href="#" id="whatsappBtn" class="whatsapp-btn">📤 Enviar por WhatsApp</a>
+                    </div>
+                `;
+
+                document.getElementById('resumo').innerHTML = resumo;
+                
+                // Configure WhatsApp button and display it
+                const whatsappBtn = document.getElementById('whatsappBtn');
+                whatsappBtn.style.display = 'block';
+                const whatsappText = `-*Resumo de Personalização*\n\n` +
+                    `*Produto:* ${document.getElementById('produto').value}\n` +
+                    `*Valor do Produto:* R$ ${valorProduto.toFixed(2)}\n` +
+                    `*Valor da Folha:* R$ ${valorFolha.toFixed(2)}\n` +
+                    `*Frete:* R$ ${frete.toFixed(2)}\n` +
+                    `*Lucro:* ${lucro}% (R$ ${lucroTotal.toFixed(2)})\n` +
+                    `*Valor Final:* R$ ${valorFinal.toFixed(2)}`;
+                
+                whatsappBtn.href = `https://wa.me/?text=${encodeURIComponent(whatsappText)}`;
+            });
+
+            // Clear form function
+            document.getElementById('limpar').addEventListener('click', function() {
+                document.querySelectorAll('input, select').forEach(el => {
+                    if (el.id !== 'produto') el.value = '';
+                });
+                document.getElementById('resumo').innerHTML = '<div class="resumo-thumbnail"></div><div class="resumo-content"></div>';
+                // Reset to caneca image
+                document.getElementById('imagem-produto').src = 'https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/64e23b22-36dd-4c30-a8e9-932e0b4d17ef.png';
+                document.getElementById('produto').selectedIndex = 0;
+            });
+        });
+    </script>
+</body>
+</html>
