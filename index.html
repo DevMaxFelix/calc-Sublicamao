@@ -157,8 +157,9 @@
 
               <label for="material">🗃 Tipo de Material:</label>
         <select id="material">
-            <option value="dtf-textil">DTF Têxtil</option>
-            <option value="dtf-uv">DTF UV</option>
+            <option value="DTF Textil">DTF Têxtil</option>
+            <option value="DTF UV">DTF UV</option>
+            <option value="Sublimação">Sublimação</option>
         </select>
 
         <label for="valor-produto">📦 Valor do Produto (R$):</label>
@@ -200,6 +201,7 @@
                 const valorFolha = parseFloat(document.getElementById('valor-folha').value) || 0;
                 const frete = parseFloat(document.getElementById('frete').value) || 0;
                 const lucro = parseFloat(document.getElementById('lucro').value) || 0;
+                const tipoMaterial = document.getElementById('material').value;
 
                 const custoTotal = valorProduto + valorFolha + frete;
                 const lucroTotal = (custoTotal * (lucro / 100));
@@ -211,6 +213,7 @@
                     </div>
                     <div class="resumo-content">
                         <h2>📝 Resumo da Personalização</h2>
+                        <p><b> Tipo de material: </b> ${tipoMaterial}</p>
                         <p><b> Valor do Produto: </b> R$ ${valorProduto.toFixed(2)}</p>
                         <p><b> Valor da Folha de Sublimação: </b> R$ ${valorFolha.toFixed(2)}</p>
                         <p><b> Frete Proporcional: </b> R$ ${frete.toFixed(2)}</p>
@@ -227,6 +230,7 @@
                 whatsappBtn.style.display = 'block';
                 const whatsappText = `-*Resumo de Personalização*\n\n` +
                     `*Produto:* ${document.getElementById('produto').value}\n` +
+                    `*Tipo de material:* ${tipoMaterial}\n` +
                     `*Valor do Produto:* R$ ${valorProduto.toFixed(2)}\n` +
                     `*Valor da Folha:* R$ ${valorFolha.toFixed(2)}\n` +
                     `*Frete:* R$ ${frete.toFixed(2)}\n` +
